@@ -1,0 +1,28 @@
+.apage {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.apagesec1 {
+    width: 20%;
+}
+
+.apagesec2 {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.apagesec3 {
+    width: 20%;
+}
+
+.apageq {
+    position: sticky;
+    top: 50px;
+    background-color: white;
+    width: 50vw;
+}

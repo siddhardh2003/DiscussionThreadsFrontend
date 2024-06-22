@@ -1,0 +1,72 @@
+.qpage {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+.qpagesec1 {
+    width: 20%;
+}
+
+.qpagesec2 {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.qpagesec3 {
+    width: 20%;
+}
+
+.getqmodelo {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.3);
+    display: flex;
+    /* pointer-events:none;     */
+}
+
+.getqmodelo {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.getqmain {
+    resize: none;
+    font-size: 1.3rem;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.getqmain:focus {
+    outline: none;
+    outline: 2px solid rgba(0,0,0,0.3);
+}
+
+
+.getqb {
+    background-color: #fff;
+    border: 0 solid #e2e8f0;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    color: #0d172a;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 8px;
+    margin-top: 5px;
+    text-align: center;
+}
+.getqb:hover {
+    background-color: #1e293b;
+    color: #fff;
+}
+.getqb:active {
+    background-color: #fff;
+    color: #1e293b;
+}

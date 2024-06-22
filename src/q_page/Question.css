@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Slabo+27px&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.qoverall {
+    margin: 10px 0px;
+    width: 40vw;
+    box-sizing: border-box;
+    min-height: 100px;
+    padding: 15px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    cursor: pointer;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bolder;
+}
+
+.qoverall:hover {
+    background-color: rgba(220, 220, 220, 0.9);
+}
+.qoverall:active {
+    background-color: rgba(255, 255, 255, 1);
+}
+.qmain {
+    font-size: 1.5rem;
+}
+.qfooter {
+    margin-top: 2px;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.5)
+}
+.qname {
+    font-size: 0.9rem;
+    font-weight: bolder;
+    font-family: 'Roboto', sans-serif;
+}
+
+.qdetail {
+    font-size: 0.7rem;
+    font-weight: bolder;
+    color: rgba(0,0,0,0.6);
+}
+
+.qheader {
+    font-size: 1rem;
+}
+
+::selection {
+    color: white;
+    background: black;
+}
+
+.apageq {
+    margin: 10px 0px;
+    width: 40vw;
+    box-sizing: border-box;
+    min-height: 100px;
+    padding: 15px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    cursor: pointer;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bolder;
+    position: sticky;
+    z-index: 2;
+    top: 30px;
+}
