@@ -13,16 +13,21 @@ function App() {
   let pid = Math.floor(Math.random() * 4000 + 1);
 
   // let [isLoggedin, setIsLoggedin] = useState(true);
-  const [isLoggedin, setIsLoggedin] = useState(false);
+  // const [isLoggedin, setIsLoggedin] = useState(false);
+  const [isLoggedin, setIsLoggedin] = useState(() => {
+    const saved = localStorage.getItem('isLoggedin');
+    
+    return saved === 'true'; // convert string to boolean
+  });
 
   
   const handleLogin = () => {
     setIsLoggedin(true);
-
   };
 
   const handleLogout = () => {
     setIsLoggedin(false);
+
   };
   useEffect(() => {
     localStorage.setItem('isLoggedin', isLoggedin);
