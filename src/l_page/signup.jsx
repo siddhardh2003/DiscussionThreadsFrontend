@@ -13,7 +13,7 @@ const Signup = ({handleLogin}) => {
         e.preventDefault();
         const { name,gender,age,year,branch,section ,email, password } = user;
         console.log(user);
-        res = await fetch('http://localhost:5000/signup', 
+        res = await fetch('http://localhost:5000/api/signup', 
         {
             method: 'POST',
             headers: {
@@ -24,8 +24,6 @@ const Signup = ({handleLogin}) => {
                 { name,gender,age,year,branch,section ,email, password }
             )
         })
-
-        // const data = await res.json();
         console.log(res.body);
         if (res.status === 400) 
         {
@@ -35,8 +33,7 @@ const Signup = ({handleLogin}) => {
         else 
         {
             console.log(res.status);
-            alert('Please Authenticate your Through your email ');
-            // handleLogin();
+            alert('Please Authenticate yourself Through your email ');
             navigate('/login');
         }
     }
@@ -177,9 +174,6 @@ const Signup = ({handleLogin}) => {
 
                     </div>
                 </div>
-                {/* <hr className='w-2/12 bg-black' /> */}
-                {/* <div name="invalidname" className="invalid" >
-                </div> */}
             </div>
 
         </div>

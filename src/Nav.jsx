@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-
+import { useNavigate, Link } from 'react-router-dom'
 
 function Navbar({pid,isLoggedin,setIsLoggedin}) {
     // let homeflag = 0, aboutflag=0, loginflag = 0 
+    const navigate = useNavigate();
     const [homeflag, setHomeflag] = useState(0);
     const [aboutflag, setAboutflag] = useState(0);
     const [loginflag, setLoginflag] = useState(1);
@@ -11,14 +11,35 @@ function Navbar({pid,isLoggedin,setIsLoggedin}) {
     let homecss = (homeflag == 1) ? 'border-b-2 border-b-blue-500' : ''
     let aboutcss = (aboutflag == 1) ? 'border-b-2 border-b-blue-500' : ''
     let logincss = (loginflag == 1) ? 'border-b-2 border-b-blue-500' : ''
-    let handle=()=>
-    {
-        setHomeflag(0), 
-        setAboutflag(0), 
-        setLoginflag(0)
-        setIsLoggedin(false);
-        navigate('/');
-    }
+
+    let handle = async () => {
+        try {
+            const response = await fetch('/api/logout', {
+                method: 'GET',
+            });
+            console.log(response);
+            if (!response.ok) {
+                console.log("Logout Failed");
+                return;
+            }
+    
+            console.log("Logout Successful");
+
+            setHomeflag(0);
+            setAboutflag(0);
+            setLoginflag(0);
+
+            setIsLoggedin(false);
+            navigate('/');
+    
+        } 
+        catch (error) {
+            console.error('Error during logout:', error);
+        }
+    };
+
+
+
     return (
         <div>
             <nav className="shadow w-screen bg-gray-800">
@@ -42,23 +63,6 @@ function Navbar({pid,isLoggedin,setIsLoggedin}) {
                     </Link> 
 
                     <div>
-                        {/* <div class="relative flex  flex-col justify-center overflow-hidden bg-gradient-to-br from-lime-300 to-green-500 p-6 ">
-                            <div class="relative rounded-2xl bg-white px-6 pt-10 pb-8 border-2 border-black shadow-xl ring-1 ring-gray-900/5 ">
-                                <div class="mx-auto "> */}
-
-
-                                    {/* <form action="" className="absolute right-2 top-3">
-                                        <input type="search"
-                                            className="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-white focus:pl-16 focus:pr-4 border-gray-800 " />
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                        </svg>
-                                    </form> */}
-
-
-                                {/* </div>
-                            </div>
-                        </div> */}
                     </div>
 
                 </div>

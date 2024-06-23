@@ -1,51 +1,43 @@
 import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-
+import axios from 'axios';
 
 const Login = ({handleLogin}) => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState({ email: "", password: "" });
 
-    const handleSubmit = async (e) => {  
-        // let res;
-        // e.preventDefault();
-        // if (!user.email || !user.password) 
-        // {
-        //     alert('Invalid Credentials');
-        // }
-        // else 
-        // {
-        //     const { email, password } = user;
-        //     res = await fetch('http://localhost:5000/login', 
-        //     {
-        //         method: 'POST',
-        //         headers: 
-        //         {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify
-        //         (
-        //             {email, password}
-        //         )
-        //     })
-        // }
-
-        // const data = await res.json();
-        // if (res.status === 400 || !data) 
-        // {
-        //     alert('User Already Exists')
-        // }
-        // else 
-        // {
-        //     handleLogin();
-        //     navigate('/');
-        // }
-        handleLogin();
-        navigate('/');
-
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        if (!user.email || !user.password) {
+            alert('Invalid Credentials');
+            return;
+        }
+    
+        try {
+            const { email, password } = user;
+            const response = await axios.post('/api/login', { email, password } );
+            const data = response.data;
+            console.log(response);
+            console.log(data);
+            if (response.status === 400) 
+            {
+                alert('Invalid Credentials');
+            } 
+            else {
+                console.log('Login successful');
+                console.log(data);
+                handleLogin();
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            alert('Login failed, please try again.');
+        }
+    };
+  
 
 
     return (
