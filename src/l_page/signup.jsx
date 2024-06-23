@@ -25,14 +25,16 @@ const Signup = ({handleLogin}) => {
             )
         })
 
-        const data = await res.json();
+        // const data = await res.json();
+        console.log(res.body);
         if (res.status === 400) 
         {
+            console.log(res.status);
             alert('Couldnt signin!! Email or User name already esists')
         }
         else 
         {
-
+            console.log(res.status);
             alert('Please Authenticate your Through your email ');
             // handleLogin();
             navigate('/login');

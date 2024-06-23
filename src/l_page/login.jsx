@@ -4,45 +4,46 @@ import { useNavigate, Link } from 'react-router-dom'
 
 
 const Login = ({handleLogin}) => {
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({ email: "", password: "" });
 
     const handleSubmit = async (e) => {  
-        let res;
-        e.preventDefault();
-        if (!user.email || !user.password) 
-        {
-            alert('Invalid Credentials');
-        }
-        else 
-        {
-            const { email, password } = user;
-            res = await fetch('http://localhost:5000/login', 
-            {
-                method: 'POST',
-                headers: 
-                {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify
-                (
-                    {email, password}
-                )
-            })
-        }
+        // let res;
+        // e.preventDefault();
+        // if (!user.email || !user.password) 
+        // {
+        //     alert('Invalid Credentials');
+        // }
+        // else 
+        // {
+        //     const { email, password } = user;
+        //     res = await fetch('http://localhost:5000/login', 
+        //     {
+        //         method: 'POST',
+        //         headers: 
+        //         {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify
+        //         (
+        //             {email, password}
+        //         )
+        //     })
+        // }
 
-        const data = await res.json();
-        if (res.status === 400 || !data) 
-        {
-            alert('User Already Exists')
-        }
-        else 
-        {
-            handleLogin();
-            navigate('/');
-        }
-        // handleLogin();
-        // navigate('/');
+        // const data = await res.json();
+        // if (res.status === 400 || !data) 
+        // {
+        //     alert('User Already Exists')
+        // }
+        // else 
+        // {
+        //     handleLogin();
+        //     navigate('/');
+        // }
+        handleLogin();
+        navigate('/');
 
     }
 
