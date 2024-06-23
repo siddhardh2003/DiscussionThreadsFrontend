@@ -5,47 +5,50 @@ import { useNavigate, Link } from 'react-router-dom'
 
 const Login = ({handleLogin}) => {
 
-    const navigate = useNavigate();
     const [user, setUser] = useState({ email: "", password: "" });
 
     const handleSubmit = async (e) => {  
-        // let res;
-        // e.preventDefault();
-        // if (!user.email || !user.password) {
-        //     alert('Invalid Credentials');
-        // }
-        // else {
-        //     const { email, password } = user;
+        let res;
+        e.preventDefault();
+        if (!user.email || !user.password) 
+        {
+            alert('Invalid Credentials');
+        }
+        else 
+        {
+            const { email, password } = user;
+            res = await fetch('http://localhost:5000/login', 
+            {
+                method: 'POST',
+                headers: 
+                {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify
+                (
+                    {email, password}
+                )
+            })
+        }
 
-        //     res = await fetch('http://172.20.10.2:5000/login', {
-        //     // res = await fetch('http://192.168.137.1:5000/login', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(
-        //             { email, password }
-        //         )
-        //     })
-        // }
-
-        // const data = await res.json();
-        // if (res.status === 400 || !data) {
-        //     alert('Invalid Credentials')
-        // }
-        // else {
-        //     handleLogin();
-        //     
-        // }
-        handleLogin();
-        navigate('/');
+        const data = await res.json();
+        if (res.status === 400 || !data) 
+        {
+            alert('User Already Exists')
+        }
+        else 
+        {
+            handleLogin();
+            navigate('/');
+        }
+        // handleLogin();
+        // navigate('/');
 
     }
 
 
     return (
         <div className='flex flex-col h-screen'>
-            {/* <Navbar /> */}
             <div className="c2 flex-grow  flex flex-col items-center justify-center gap-3 bg-gray-100">
                 <div className='flex flex-col justify-center items-center w-[400px] h-2/3 bg-white'>
                     <p className='mb-2 text-xl font-semibold'>Sign In</p>
@@ -61,10 +64,7 @@ const Login = ({handleLogin}) => {
                         </div>
                     </div>
                 </div>
-                {/* <hr className='w-2/12 bg-black' /> */}
-
             </div>
-
         </div>
     )
 }

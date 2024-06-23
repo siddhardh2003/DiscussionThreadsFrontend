@@ -1,25 +1,24 @@
 import React from 'react'
-import {
-    Checkbox,
-    Card,
-    List,
-    ListItem,
-    ListItemPrefix,
-    Typography,
-} from "@material-tailwind/react";
-import { Radio } from "@material-tailwind/react";
+
 
 
 function handler(callback) {
-    let arrange = {}
-    let arr = document.querySelectorAll('input')
-    arr.forEach(item => {
-        if(item.checked && item.value != 2) {
-            arrange[item.name] = (Number(item.value) == 0) ? -1: 1; 
+    let arrange = {};
+    let arr = document.querySelectorAll('input[type="radio"]:checked');
+    for (let item of arr) 
+    {
+        let name = item.name;
+        let value = item.value;
+        if (value !== "None") 
+        {
+            arrange[name] = value;
+            break; 
         }
-    }) 
-    callback(arrange) 
+    }
+    console.log(arrange);
+    callback(arrange);
 }
+
 
 
 
@@ -34,13 +33,13 @@ function Qarrange({setarrange}) {
 
                     <div className="flex gap-4 flex-col shadow-md rounded-xl p-4 bg-white">
                         <div>
-                            <label><input className='mr-3' id="latest" type='radio' name="time" value="0" onChange={()=>{handler(setarrange)}}/>Latest</label>
+                            <label><input className='mr-3' id="latest" type='radio' name="time" value="Latest" onChange={()=>{handler(setarrange)}}/>Latest</label>
                         </div>
                         <div>
-                            <label><input className='mr-3 mt-0' id="oldest" type='radio' name="time" value="1" onChange={()=>{handler(setarrange)}}/>Oldest</label>
+                            <label><input className='mr-3 mt-0' id="oldest" type='radio' name="time" value="Oldest" onChange={()=>{handler(setarrange)}}/>Oldest</label>
                         </div>
                         <div>
-                            <label><input className='mr-3 mt-0'  type='radio' name="time" value="2" onChange={()=>{handler(setarrange)}}/>None</label>
+                            <label><input className='mr-3 mt-0'  type='radio' name="time" value="None" onChange={()=>{handler(setarrange)}}/>None</label>
                         </div>
                     </div>
 
@@ -50,13 +49,13 @@ function Qarrange({setarrange}) {
 
                     <div className="flex gap-4 flex-col shadow-md rounded-xl p-4 bg-white">
                         <div>
-                            <label><input className='mr-3' type='radio' name="answers" value="0"  onChange={()=>{handler(setarrange)}}/>Most Answered</label>
+                            <label><input className='mr-3' type='radio' name="answers" value="MostAnswered"  onChange={()=>{handler(setarrange)}}/>Most Answered</label>
                         </div>
                         <div>
-                            <label><input className='mr-3 mt-0' type='radio' name="answers" value="1"  onChange={()=>{handler(setarrange)}}/>Least answered</label>
+                            <label><input className='mr-3 mt-0' type='radio' name="answers" value="LeastAnswered"  onChange={()=>{handler(setarrange)}}/>Least answered</label>
                         </div>
                         <div>
-                            <label><input className='mr-3 mt-0' type='radio' name="answers" value="2"  onChange={()=>{handler(setarrange)}}/>None</label>
+                            <label><input className='mr-3 mt-0' type='radio' name="answers" value="None"  onChange={()=>{handler(setarrange)}}/>None</label>
                         </div>
                     </div>
                     <br />
@@ -66,13 +65,13 @@ function Qarrange({setarrange}) {
 
                     <div className="flex gap-4 flex-col shadow-md rounded-xl p-4 bg-white">
                         <div>
-                            <label><input className='mr-3' type='radio' name="visits" value="0"  onChange={()=>{handler(setarrange)}}/>Most visits</label>
+                            <label><input className='mr-3' type='radio' name="visits" value="MostVisits"  onChange={()=>{handler(setarrange)}}/>Most visits</label>
                         </div>
                         <div>
-                            <label><input className='mr-3 mt-0' type='radio' name="visits" value="1"  onChange={()=>{handler(setarrange)}}/>Least visits</label>
+                            <label><input className='mr-3 mt-0' type='radio' name="visits" value="LeastVisits"  onChange={()=>{handler(setarrange)}}/>Least visits</label>
                         </div>
                         <div>
-                            <label><input className='mr-3 mt-0'  type='radio' name="visits" value="2"  onChange={()=>{handler(setarrange)}}/>None</label>
+                            <label><input className='mr-3 mt-0'  type='radio' name="visits" value="None"  onChange={()=>{handler(setarrange)}}/>None</label>
                         </div>
                     </div>
                     <br />

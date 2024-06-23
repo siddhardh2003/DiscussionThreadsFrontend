@@ -39,7 +39,6 @@ function handler(callback, pid) {
 
 function searchhandler(event, callback) {
   const searchString = `.*${event.target.value}.*`;
-  // const regexPattern = new RegExp(searchString, 'i');
   callback({ question: searchString })
 }
 

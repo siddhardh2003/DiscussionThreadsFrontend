@@ -13,34 +13,41 @@ const Signup = ({handleLogin}) => {
         e.preventDefault();
         const { name,gender,age,year,branch,section ,email, password } = user;
         console.log(user);
-        res = await fetch('http://172.20.10.2:5000/signup', {
-        // res = await fetch('http://192.168.137.1:5000/signup', {
+        res = await fetch('http://localhost:5000/signup', 
+        {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(
+            body: JSON.stringify
+            (
                 { name,gender,age,year,branch,section ,email, password }
             )
         })
 
         const data = await res.json();
-        if (res.status === 400) {
-            alert('Couldnt signin')
+        if (res.status === 400) 
+        {
+            alert('Couldnt signin!! Email or User name already esists')
         }
-        else {
-            alert('Signin Successfull')
-            handleLogin();
-            navigate('/');
+        else 
+        {
+
+            alert('Please Authenticate your Through your email ');
+            // handleLogin();
+            navigate('/login');
         }
     }
 
 
-    const validate = (e) => {
-        if (validatesignup()) {
+    const validate = (e) => 
+    {
+        if (validatesignup()) 
+        {
             handleSubmit(e);
         }
-        else {
+        else 
+        {
             e.preventDefault();
         }
     };
@@ -112,9 +119,6 @@ const Signup = ({handleLogin}) => {
             flag = false;
             seterror(2);
         }
-
-        // let pass = document.forms['signupform']["fpass2"].value;
-        // let cpass = document.forms['signupform']["fpass3"].value;
         if (user.confirmpassword != user.password) {
             flag = false;
             seterror(0);
