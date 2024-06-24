@@ -2,8 +2,12 @@ import React from 'react'
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
-const Login = ({handleLogin}) => {
+const Login = ({handleLogin,setusername}) => {
+
+
+
     const navigate = useNavigate();
 
     const [user, setUser] = useState({ email: "", password: "" });
@@ -30,6 +34,14 @@ const Login = ({handleLogin}) => {
                 console.log('Login successful');
                 console.log(data);
                 handleLogin();
+
+
+                const cookieNameValue =  Cookies.get('name');
+                setusername(cookieNameValue);
+                console.log(cookieNameValue);
+
+
+
                 navigate('/');
             }
         } catch (error) {
