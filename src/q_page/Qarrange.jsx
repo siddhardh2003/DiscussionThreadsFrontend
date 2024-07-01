@@ -3,7 +3,7 @@ import React from 'react'
 
 
 function handler(callback) {
-    let arrange = {};
+    let arrange = [];
     let arr = document.querySelectorAll('input[type="radio"]:checked');
     for (let item of arr) 
     {
@@ -11,7 +11,7 @@ function handler(callback) {
         let value = item.value;
         if (value !== "None") 
         {
-            arrange[name] = value;
+            arrange.push(item.value);
             break; 
         }
     }

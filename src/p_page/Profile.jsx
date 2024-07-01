@@ -1,16 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './Profile.css'
+import UserQuestion from './userQuestion.jsx';
+
 import { Link } from 'react-router-dom'
 
 
 export default function Profile({pid}) {
-    let { id } = useParams()
 
-    let [data1, setdata1] = useState([<></>])
-    let [data2, setdata2] = useState([<></>])
-    let [data3, setdata3] = useState([<></>])
-
+ let [userInfo,setUserInfo]=useState([]);
+ let [userQuestions,setuserQuestions]=useState([]);
+ useEffect(()=>{
+    let FetchDetails=async(pid)=>{
+      let res=await fetch(`/api/getProfile?username=${pid}`,{method:"GET"});
+      let userData=await res.json();
+      // console.log(userData);
+      let userInfo=userData.userInfo;
+      let userQuestions=userData.userQuestions;
+      console.log(userInfo);
+      setUserInfo(userInfo)
+      console.log(userQuestions);
+      setuserQuestions(userQuestions);
+    }
+    FetchDetails(pid)
+  },[]);
 
     return (
         <>
@@ -50,17 +63,17 @@ export default function Profile({pid}) {
                                     <div className="w-full lg:w-4/12 px-4 lg:order-1">
                                         <div className="flex justify-center py-4 lg:pt-4 pt-8">
                                             <div className="mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span className="text-sm text-blueGray-400">Posts</span>
+                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{Object.keys(userQuestions).length}</span><span className="text-sm text-blueGray-400">Posts</span>
                                             </div>
                                             <div className="lg:mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">89</span><span className="text-sm text-blueGray-400">Answers</span>
+                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">10</span><span className="text-sm text-blueGray-400">Answers</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="text-center mt-12">
                                     <h3 className="text-4xl font-semibold leading-normal  text-blueGray-700 mb-2">
-                                        Siddhardh Kaluva
+                                        {pid}
                                     </h3>
                                     <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                                         <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
@@ -73,16 +86,19 @@ export default function Profile({pid}) {
                                     <div className="mb-2 text-blueGray-600">
                                         <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>Computer Science
                                     </div>
-                                </div>
-                                <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
-                                    <div className="flex flex-wrap justify-center">
-                                        <div className="w-full lg:w-9/12 px-4">
-                                            <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                                                👋 Welcome to my profile! I'm Siddhardh Kaluva, a passionate learner and contributor in this vibrant online community. I believe in the power of meaningful discussions and the exchange of diverse ideas. Whether exploring new topics, sharing experiences, or connecting with fellow enthusiasts, I'm here to engage and learn.
-                                            </p>
+                                    <div className='userq mt-5 p-10 flex flex-col'>
+                                        <div className='p-auto'>
+                                        <h1 style={{fontWeight:'700'}}>Your Threads </h1>
+                                        <i className="bi bi-chat-dots"></i>
                                         </div>
+                                        
+                                        {userQuestions.map((item, index) => (
+                                            <UserQuestion key={index}  data={item} />
+                                        ))}
+
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

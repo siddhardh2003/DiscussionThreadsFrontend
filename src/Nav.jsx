@@ -42,7 +42,7 @@ function Navbar({pid,isLoggedin,setIsLoggedin}) {
 
     return (
         <div>
-            <nav className="shadow w-screen bg-gray-800">
+            <nav className="shadow w-screen bg-gray-800 " >
                 <div className="container flex items-center justify-center p-6 mx-auto  capitalize text-gray-300">
 
                     <Link to="/" className={`${homecss} text-gray-200  active:border-b-2 active:border-blue-500 mx-1.5 sm:mx-6 hover:border-blue-500 hover:border-b-2`} id='home' onClick={() => { setHomeflag(1), setAboutflag(0), setLoginflag(0) }}>

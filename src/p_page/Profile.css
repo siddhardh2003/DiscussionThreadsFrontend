@@ -22,3 +22,15 @@
     background-size: cover;
     background-position: center;
 }
+.userq
+{
+    /* border-width: 2px; */
+    border-top-width: 1px;
+    border-color: rgb(211, 202, 202);
+    overflow-y: scroll;
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent; 
+    overflow-y: scroll; 
+    position: relative;
+    height: 600px;
+}

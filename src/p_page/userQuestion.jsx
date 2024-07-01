@@ -1,9 +1,6 @@
 import React from 'react'
-import { useState } from 'react';
 import { Link ,useNavigate} from 'react-router-dom'
-
-
-function questioncard({ rule ,data }) {
+export default function userQuestion({ rule ,data }) {
     let dateObject = new Date(data.time);
     let day = dateObject.getUTCDate();
     let month = dateObject.getUTCMonth() + 1;
@@ -11,7 +8,6 @@ function questioncard({ rule ,data }) {
     let formattedDay = day < 10 ? '0' + day : day;
     let formattedMonth = month < 10 ? '0' + month : month;
     let formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
-    const navigate = useNavigate();
     let margincss = (rule==1)?'':'mt-6';
 
     let handleViewQuestion=async (data)=>{
@@ -27,17 +23,9 @@ function questioncard({ rule ,data }) {
     }
 
     return (
-        <div className={(rule == 1) ? 'apageq' : 'qoverall container-fluid transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-103 duration-300'} style={{ pointerEvents: (rule == 1) ? 'none' : ''  }} onClick={()=>{handleViewQuestion(data)}}   >
+        <div className={'qoverall container-fluid transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-103 duration-300'} style={{ pointerEvents: (rule == 1) ? 'none' : ''  }} onClick={()=>{handleViewQuestion(data)}}   >
             <div className={`flex flex-row  rounded-sm justify-between bg-white z-10 bg-clip-border text-gray-700 shadow-md ${margincss}`}  style={{ borderRadius: '20px' }}>
                 <div className="p-6">
-                    <div className='flex flex-col w-full'>
-                        <h6 className="mb-0 text-md block font-sans leading-relaxed tracking-normal  antialiased">
-                            <Link /*to={`/profile/${data.bywhom}`}*/ className='qname ' style={{marginBottom:'5px'}}>
-                                {data.byWhom}
-                            </Link>
-                        </h6>
-                    </div>
-
                     <h4 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                         {data.question}
                     </h4>
@@ -67,5 +55,3 @@ function questioncard({ rule ,data }) {
         </div>
     )
 }
-
-export default questioncard

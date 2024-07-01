@@ -53,7 +53,16 @@ function App() {
           <Route exact path='/login' element={<><Navbar pid={username} isLoggedin={isLoggedin}  handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin} /><Login  handleLogin={handleLogin} setusername={setusername}/></>} />
           <Route exact path='/signup' element={<><Navbar pid={username} isLoggedin={isLoggedin} handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin}/><Signup  handleLogin={handleLogin}/></>} />
           <Route exact path='/about' element={<><Navbar pid={username} isLoggedin={isLoggedin} handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin} /><About /></>} />
-          <Route path='/profile/:id' element={<Profile pid={username}/>} />
+          <Route path="/profile/:id" element={isLoggedin ? (
+          <>
+            {<Profile pid={username}/>} 
+          </>
+          ) : (
+          <>
+           <Navbar pid={username} isLoggedin={isLoggedin} handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin}/>
+           <Login handleLogin={handleLogin} setusername={setusername}/>
+          </>
+           )} />
         </Routes>
       </BrowserRouter>
     </>

@@ -1,11 +1,12 @@
 import Question from './Question.jsx'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import './Qpage.css'
 import Qfilter from './Qfilter'
 import Qarrange from './Qarrange.jsx'
 import { Link } from 'react-router-dom'
 
-let handler=(callback, pid)=>{
+let handler=(e,callback, pid)=>{
+  e.preventDefault();
   var ele = document.querySelector('.getqmain')
   var filters=[];
   if(ele.value!=='')
@@ -59,46 +60,83 @@ let handler=(callback, pid)=>{
 
 }
 
-// function searchhandler(event, callback) {
-//   const searchString = `.*${event.target.value}.*`;
-//   callback({ question: searchString })
-// }
 
 export default function Qpage({ pid }) {
-  let [data, setdata] = useState([<></>])
+  let [data, setdata] = useState([])
   let [style1, setstyle1] = useState({ display: 'none' })
-  let [filter, setfilter] = useState({})
+  let [filter, setfilter] = useState([])
+  let [branchFilter,setbranchFilter] =useState([]);
   let [arrange, setarrange] = useState({})
-  let [qfilter, setqfilter] = useState({})
+  let [searchVal, setsearchVal] = useState('')
 
-//   useEffect(() => {
-//     fetch('http://127.0.0.1:5000/', {
-//       method: "POST",
-//       body: JSON.stringify({
-//         qfilter: qfilter,
-//         filter: filter,
-//         arrange: arrange
-//       }),
-//       headers: {
-//         "Content-type": "application/json; charset=UTF-8"
-//       }
-//     }).then(res => res.json()).then(d => {
-//       d = d.map((item, index) => <Question rule={0} key={index} pid={pid} data={item} />)
-//       setdata(d)
-//     })
-//   }, [qfilter, filter, arrange, style1])
+  
+  const inputRef = useRef(null);
+  const handleSetFilters= async (e)=>{
+    console.log(JSON.stringify({
+      branchFilter: branchFilter,
+      filter: filter,
+      arrange: arrange
+    }))
+    let res= await fetch('/api/getThreads', {
+            method: "POST",
+            body: JSON.stringify({
+              branchFilter: branchFilter,
+              filter: filter,
+              arrange: arrange
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }         
+          })
+          let Threadsdata = await res.json();
+          // console.log()
+          console.log(Threadsdata);
+          setdata(Threadsdata);
+
+  };
+  const searchHandler=(e,setsearchVal)=>{
+      setsearchVal(e.target.value);
+      console.log(e.target.value);
+  }
+  const HandleSearchQuery= async (e)=>{
+    e.preventDefault();
+    console.log(searchVal);
+    if(searchVal!=''){
+      let res = await fetch(`/api/searchThreads?searchVal=${searchVal}`, {
+        method: 'GET',
+      });
+      let Threadsdata = await res.json();    
+      console.log(Threadsdata);
+      setdata(Threadsdata);
+      inputRef.current.value = '';
+      setsearchVal('');
+    }
+  };
+  useEffect(() => {
+    const DefaultFetch= async()=>
+    {
+      let res= await fetch('/api/getThreads', {
+        method: "POST",
+        body: JSON.stringify({
+          branchFilter: branchFilter,
+          filter: filter,
+          arrange: arrange
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }         
+      })
+      let Threadsdata = await res.json();
+      console.log(Threadsdata);
+      setdata(Threadsdata);
+    }
+    DefaultFetch();
+    
+  }, [style1]);
+
 
   return (
-    <div className='bg-gray-200'>
-      <form action="" className="absolute right-2 top-3">
-        <input type="search"
-          className="text-white peer cursor-pointer relative z-10 h-12 w-12 rounded-full  bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border focus:border-white focus:pl-16 focus:pr-4 border-gray-800" onChange={e => { searchhandler(e, setqfilter) }} />
-        <svg xmlns="http://www.w3.org/2000/svg" className="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white " fill="none" viewBox="0 0 24 24" stroke="none" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg>
-
-      </form>
-
+    <div className=' total bg-gray-200'>
       <div className='getqmodelo' style={style1}>
         <div className='getqmodeli bg-gray-700 p-5 rounded-md'>
           <div className='flex flex-row justify-between'>
@@ -184,7 +222,7 @@ export default function Qpage({ pid }) {
               className="middle none center rounded-lg bg-blue-600 py-3 px-6 font-sans text-md font-bold text-white transition-all hover:shadow-lg hover:bg-blue-800"
               data-ripple-light="true"
 
-              onClick={() => { handler(setstyle1, pid) }}
+              onClick={(e) => { handler(e,setstyle1, pid) }}
             >
               Submit
             </button>
@@ -195,19 +233,56 @@ export default function Qpage({ pid }) {
       <div className='qpage flex flex-row justify-between'>
 
         <div className='qpagesec1 '>
+        <button className="mt-4 ml-4 w-11/12 block  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" onClick={(e) => { handleSetFilters(e)}}>
+            Apply Filters
+          </button>
           <div className='qpagefilters'>
-            <Qfilter setfilter={setfilter}></Qfilter>
+            <Qfilter setfilter={setfilter} setbranchFilter={setbranchFilter}></Qfilter>
           </div>
         </div>
 
-        <div className='qpagesec2 w-6/12 '>
-          {/* {data} */}
+
+        <div className='qpagesec2'>
+          <div >
+            {data.map((item, index) => (
+              <Question key={index} rule={0} data={item} />
+            ))}
+          </div>
         </div>
 
+
+
         <div className='qpagesec3'>
+            <div className="search-bar" style={{ marginTop: '0px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <input
+               ref={inputRef}
+                type="text"
+                className="form-control"
+                placeholder="Search for a Thread"
+                style={{ width: '60%', borderRadius: '10px', marginTop: '20px', height: '30px', marginRight: '10px' }}
+                onChange={e => { searchHandler(e, setsearchVal)}}
+              />
+              <button
+                style={{
+                  height: '30px',
+                  borderRadius: '10px',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0 15px',
+                  cursor: 'pointer',
+                  marginTop: '20px'
+                }}
+                onClick={(e) => HandleSearchQuery(e)}
+              >
+                Submit
+              </button>
+            </div>
+
           <button className="mt-4 w-11/12 block mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button" onClick={() => { setstyle1({ display: 'flex' }) }}>
             Post Question
           </button>
+          
           <Qarrange setarrange={setarrange} />
         </div>
 
