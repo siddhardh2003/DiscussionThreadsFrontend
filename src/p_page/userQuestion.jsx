@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link ,useNavigate} from 'react-router-dom'
-export default function userQuestion({ rule ,data }) {
+export default function userQuestion({ rule ,data,DisplayDelete }) {
     let dateObject = new Date(data.time);
     let day = dateObject.getUTCDate();
     let month = dateObject.getUTCMonth() + 1;
@@ -9,20 +9,15 @@ export default function userQuestion({ rule ,data }) {
     let formattedMonth = month < 10 ? '0' + month : month;
     let formattedDate = `${formattedDay}-${formattedMonth}-${year}`;
     let margincss = (rule==1)?'':'mt-6';
+    const navigate = useNavigate();
 
     let handleViewQuestion=async (data)=>{
-        
-        console.log(data._id);
-        let res = await fetch(`/api/viewQuestion/?_id=${data._id}`, {
-            method: "PUT"
-          });
-        if(res.status==400)console.log("Failed to view Question");
-        else{
-            console.log("Viewed Question Succesfully");
-        }
+        navigate(`/${data._id}`);
     }
+    
 
     return (
+        
         <div className={'qoverall container-fluid transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-103 duration-300'} style={{ pointerEvents: (rule == 1) ? 'none' : ''  }} onClick={()=>{handleViewQuestion(data)}}   >
             <div className={`flex flex-row  rounded-sm justify-between bg-white z-10 bg-clip-border text-gray-700 shadow-md ${margincss}`}  style={{ borderRadius: '20px' }}>
                 <div className="p-6">
@@ -44,14 +39,22 @@ export default function userQuestion({ rule ,data }) {
                     <div className=''>
                         {formattedDate}
                     </div>
-                    <div className='ml-6 text-xs flex flex-col'>
+                    <div className='ml-6 text-xs flex flex-col content-center text-center'>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chat-left-text" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
                             <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5" />
-                        </svg>{data.answers}
+                        </svg>
+                        {data.answers.length}
                     </div>
+                     {/* <div style={{display:'flex', justifyContent:"center"}}>
+                    <button type="button" class="btn btn-danger">Danger</button>
+                </div> */}
+                    
                 </div>
+               
+                
             </div>
+            
         </div>
     )
 }

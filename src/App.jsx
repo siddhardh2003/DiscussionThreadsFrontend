@@ -49,7 +49,7 @@ function App() {
             <Login handleLogin={handleLogin} setusername={setusername}/>
           </>
            )} />
-          <Route path='/ans/:qid/:qpid' element={<><Navbar pid={username} isLoggedin={isLoggedin} handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin}/><Apage pid={username} /></>} />
+          <Route path='/:qid' element={<><Navbar pid={username} isLoggedin={isLoggedin} handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin}/><Apage pid={username} /></>} />
           <Route exact path='/login' element={<><Navbar pid={username} isLoggedin={isLoggedin}  handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin} /><Login  handleLogin={handleLogin} setusername={setusername}/></>} />
           <Route exact path='/signup' element={<><Navbar pid={username} isLoggedin={isLoggedin} handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin}/><Signup  handleLogin={handleLogin}/></>} />
           <Route exact path='/about' element={<><Navbar pid={username} isLoggedin={isLoggedin} handleLogout={handleLogout}  setIsLoggedin={setIsLoggedin} /><About /></>} />

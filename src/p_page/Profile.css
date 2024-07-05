@@ -33,4 +33,5 @@
     overflow-y: scroll; 
     position: relative;
     height: 600px;
+    width: 90%;
 }

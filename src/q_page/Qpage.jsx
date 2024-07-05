@@ -5,7 +5,7 @@ import Qfilter from './Qfilter'
 import Qarrange from './Qarrange.jsx'
 import { Link } from 'react-router-dom'
 
-let handler=(e,callback, pid)=>{
+let handler= async(e,callback, pid)=>{
   e.preventDefault();
   var ele = document.querySelector('.getqmain')
   var filters=[];
@@ -31,7 +31,7 @@ let handler=(e,callback, pid)=>{
           visits: 0,
           time: t,
         }))
-    fetch('/api/addQuestion', 
+    let res=await fetch('/api/addQuestion', 
     {
       method: "POST",
       body: JSON.stringify
@@ -113,7 +113,7 @@ export default function Qpage({ pid }) {
     }
   };
   useEffect(() => {
-    const DefaultFetch= async()=>
+    let DefaultFetch= async()=>
     {
       let res= await fetch('/api/getThreads', {
         method: "POST",

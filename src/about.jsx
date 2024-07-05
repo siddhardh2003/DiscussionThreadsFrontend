@@ -80,8 +80,6 @@ function About() {
                 </div>
             </div>
 
-
-            {/* About team */}
             <div className='teamDesign mt-32 border-2 border-black w-9/12 p-4 pr-8 pl-8 pb-8 m-auto bg-blue-950 text-white rounded-lg'>
                 <p className='mt-8 mb-24 text-center text-4xl font-semibold '>Our team</p>
                 <div className='flex flex-col justify-around  mb-14'>
@@ -92,22 +90,12 @@ function About() {
                             <p>ks21csb0b25@student.nitw.ac.in</p>
                         </div>
                         <div className='text-md text-center w-8/12 m-auto font-mono'>
-                            Pavan Rushik Ponugoti
-                            <p>pp21csb0b42@student.nitw.ac.in</p>
+                            Rutvik Pradyumna
+                            <p>kr21csb0b30@student.nitw.ac.in</p>
                         </div>
                     </div>
 
-                    <div className='flex flex-row'>
-
-                        <div className='text-md text-center w-8/12 m-auto font-mono'>
-                            Jaiditya Beeraka
-                            <p>jb21csb0b23@student.nitw.ac.in</p>
-                        </div>
-                        <div className='text-md text-center w-8/12 m-auto font-mono'>
-                            P S Sai Ratan
-                            <p>ps21csb0b39@student.nitw.ac.in</p>
-                        </div>
-                    </div>
+                   
 
                 </div>
 
