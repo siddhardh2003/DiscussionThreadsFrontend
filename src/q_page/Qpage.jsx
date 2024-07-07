@@ -48,6 +48,8 @@ let handler= async(e,callback, pid)=>{
         "Content-type": "application/json; charset=UTF-8"
       }
     })
+    if(res.status==400)alert("Question Cant be Posted!")
+    else alert("Question Succesfully Posted!");
       ele.value = '';
       checkboxes.forEach((checkbox) => {
       checkbox.checked=false

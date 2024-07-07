@@ -29,7 +29,7 @@ async function ans_sender(qid, pid, callback, setQuestion, setAnswers) {
       downvotes: 0,
       time: t
     }));
-    await fetch(`api/addAns`, {
+    let res=await fetch(`api/addAns`, {
       method: "POST",
       body: JSON.stringify({
         toquestion: qid,
@@ -43,6 +43,8 @@ async function ans_sender(qid, pid, callback, setQuestion, setAnswers) {
         "Content-type": "application/json; charset=UTF-8"
       }
     });
+    if(res.status==400)alert("Anser Cant be posted");
+    else alert("answer posted succesfully");
     callback({ display: 'none' });
     ele.value = '';
     await fetchData({ qid, setQuestion, setAnswers });
