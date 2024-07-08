@@ -4,19 +4,20 @@ import './Profile.css';
 import UserQuestion from './userQuestion.jsx';
 import Cookies from 'js-cookie';
 
-export default function Profile({pid}) {
+export default function Profile() {
+  let [byWhom, setbyWhom] = useState(useParams())
   let [userInfo, setUserInfo] = useState({});
   let [userQuestions, setUserQuestions] = useState([]);
   let [loading, setLoading] = useState(true);
   const cookieNameValue =  Cookies.get('name');
-  let DisplayDelete= (pid==cookieNameValue)?true:false
+  let DisplayDelete= (byWhom==cookieNameValue)?true:false
   
 
   useEffect(() => {
-    const fetchDetails = async (pid) => {
+    const fetchDetails = async (byWhom) => {
       setLoading(true);
       try {
-        let res = await fetch(`/api/getProfile?username=${pid}`, { method: 'GET' });
+        let res = await fetch(`/api/getProfile?username=${byWhom.byWhom}`, { method: 'GET' });
         let userData = await res.json();
         let { userInfo, userQuestions } = userData;
         console.log('Fetched userInfo:', userInfo);  // Log userInfo to debug
@@ -29,8 +30,8 @@ export default function Profile({pid}) {
         setLoading(false);
       }
     };
-    fetchDetails(pid);
-  }, [pid]);
+    fetchDetails(byWhom);
+  }, [byWhom]);
 
   if (loading) {
     return <div>Loading...</div>; // You can replace this with a more sophisticated loading indicator if you want
@@ -83,7 +84,7 @@ export default function Profile({pid}) {
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
-                    {pid}
+                    {byWhom.byWhom}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                     <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>

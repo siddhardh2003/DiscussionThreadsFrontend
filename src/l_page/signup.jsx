@@ -28,7 +28,7 @@ const Signup = ({handleLogin}) => {
         if (res.status === 400) 
         {
             console.log(res.status);
-            alert('Couldnt signin!! Email or User name already esists')
+            alert('Couldnt signup!! Email or User name already esists')
         }
         else 
         {
@@ -58,23 +58,35 @@ const Signup = ({handleLogin}) => {
         if (f == 0) {
             temp.innerHTML = "*Passwords do not match!";
         }
-        if (f == 1) {
+        else if (f == 1) {
             temp.innerHTML = "*Password is too short!";
         }
-        if (f == 2) {
+        else if (f == 2) {
             temp.innerHTML = "*Not a valid email address!";
         }
-        if (f == 3) {
+        else if (f == 3) {
             temp.innerHTML = "*Not a valid gender!!";
         }
-        if (f == 4) {
+        else if (f == 4) {
             temp.innerHTML = "*Not a valid year!!";
         }
-        if (f == 5) {
+        else if (f == 5) {
             temp.innerHTML = "*Not a valid section!!";
         }
-        if (f == 6) {
+        else if (f == 6) {
             temp.innerHTML = "*Not a valid branch!!";
+        }
+        else if (f == 7) {
+            temp.innerHTML = "*Ensure your password has at least one uppercase letter!";
+        }
+        else if (f == 8) {
+            temp.innerHTML = "*Ensure your password has at least one lowercase letter!";
+        }
+        else if (f == 9) {
+            temp.innerHTML = "*Ensure your password has at least one digit(0-9)!";
+        }
+        else if (f == 10) {
+            temp.innerHTML = "*Ensure your password has at least one special character!";
         }
     }
 
@@ -125,6 +137,31 @@ const Signup = ({handleLogin}) => {
         else if (user.password.length < 4) {
             flag = false;
             seterror(1);
+        }
+
+        // Checking Password Strength
+        let caps=0,small=0,special=0,nums=0
+        for(let i=0;i<user.password.length;i++){
+            if(user.password[i]>='A' && user.password[i]<='Z') caps += 1
+            else if(user.password[i]>='a' && user.password[i]<='z') small += 1
+            else if(user.password[i]>='0' && user.password[i]<='9') nums += 1
+            else special += 1
+        }
+        if(caps==0){
+            flag=false
+            seterror(7)
+        }
+        else if(small==0){
+            flag=false
+            seterror(8)
+        }
+        else if(nums==0){
+            flag=false
+            seterror(9)
+        }
+        else if(special==0){
+            flag=false
+            seterror(10)
         }
         return flag
     }
