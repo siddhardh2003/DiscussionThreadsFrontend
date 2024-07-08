@@ -12,7 +12,7 @@ export default function userQuestion({ rule ,data,DisplayDelete }) {
     const navigate = useNavigate();
 
     let handleViewQuestion=async (data)=>{
-        navigate(`/${data._id}`);
+        navigate(`/question/${data._id}`);
     }
     
 

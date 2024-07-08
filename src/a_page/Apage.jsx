@@ -61,7 +61,7 @@ export default function Apage({ pid }) {
   let [reactions,setReactions]=useState([]);
   const navigate=useNavigate();
   const cookieNameValue =  Cookies.get('name');
-  let DisplayDelete= (pid==cookieNameValue)?true:false
+  let DisplayDelete= (question.bywhom==cookieNameValue)?true:false
 
   let handleDelteQuestion=async ()=>
   {
@@ -126,7 +126,7 @@ export default function Apage({ pid }) {
 
         <div className='AnsPage' style={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
           <div className='MainDiv'>
-            <h4 style={{cursor:"pointer"}}onClick={()=>{{navigate(`/profile/:${question.byWhom}`)}}}className="mb-2 mt-3 block font-sans text-xl leading-snug tracking-normal text-blue-gray-900 antialiased">
+            <h4 style={{cursor:"pointer"}}onClick={()=>{{navigate(`/profile/${question.byWhom}`)}}}className="mb-2 mt-3 block font-sans text-xl leading-snug tracking-normal text-blue-gray-900 antialiased">
               {question.byWhom}
             </h4>
             <h4 className="mb-2 mt-3 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">

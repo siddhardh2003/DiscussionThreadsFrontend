@@ -24,7 +24,7 @@ function questioncard({ rule ,data }) {
     let handleViewQuestion=async (data)=>{
         incrementViews(data._id);
         console.log(data._id);
-        navigate(`/${data._id}`);
+        navigate(`/question/${data._id}`);
     }
 
     return (
